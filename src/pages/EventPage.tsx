@@ -23,7 +23,9 @@ const EventPage: React.FC = () => {
 
         const visibleRelatedEvents = isLoggedIn
           ? fetchedRelatedEvents
-          : fetchedRelatedEvents.filter(event => event.permission !== 'private');
+          : fetchedRelatedEvents.filter(
+              (event) => event.permission !== "private"
+            );
 
         setRelatedEvents(visibleRelatedEvents);
       }
@@ -40,8 +42,20 @@ const EventPage: React.FC = () => {
 
   return (
     <>
-    
-      <section className="flex justify-center bg-white bg-dotted-pattern text-black bg-contain">
+      <section className="flex justify-center bg-white bg-dotted-pattern text-black bg-contain md:ml-20 md:mr-20 md:mt-10 md:rounded"
+      style={{
+        boxShadow:
+          "0 4px 10px rgba(255, 255, 255, 0.3), 0 10px 20px rgba(255, 255, 255, 0.2)",
+        transition: "box-shadow 0.3s ease-in-out",
+      }}
+      onMouseEnter={(e) =>
+        (e.currentTarget.style.boxShadow =
+          "0 8px 15px rgba(255, 255, 255, 0.5), 0 15px 30px rgba(255, 255, 255, 0.4)")
+      }
+      onMouseLeave={(e) =>
+        (e.currentTarget.style.boxShadow =
+          "0 4px 10px rgba(255, 255, 255, 0.3), 0 10px 20px rgba(255, 255, 255, 0.2)")
+      }>
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
           {/* Background Image */}
           <img
@@ -49,7 +63,7 @@ const EventPage: React.FC = () => {
             alt="card-background"
             width={1000}
             height={1000}
-            className="h-full min-h-[300px] object-cover object-center"
+            className="h-full min-h-[300px] w-auto max-w-full object-cover object-center rounded"
           />
           <div className="flex w-full flex-col gap-8 p-5 md:p-10">
             {event && (
@@ -74,18 +88,18 @@ const EventPage: React.FC = () => {
                         {event.event_type.toUpperCase()}
                       </p>
                     </div>
-
-                    {/* Speaker */}
-                    {event.speakers.map((speaker: TSpeaker) => (
-                      <span
-                        key={speaker.name}
-                        className="h3-semibold text-black sm:mt-0"
-                      >
-                        Speaker: {speaker.name}
-                      </span>
-                    ))}
                   </div>
                 </div>
+
+                {/* Speaker */}
+                {event.speakers.map((speaker: TSpeaker) => (
+                  <span
+                    key={speaker.name}
+                    className="h3-semibold text-black sm:mt-0"
+                  >
+                    Speaker: {speaker.name}
+                  </span>
+                ))}
 
                 {/* Date and Time */}
                 <div className="flex flex-col gap-5">

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from "react";
 
 interface AuthType {
   isLoggedIn: boolean;
@@ -8,11 +8,13 @@ interface AuthType {
 
 export const Auth = createContext<AuthType>(null!);
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => {
   const [isLoggedIn, setisLoggedIn] = useState(false);
 
   const login = (username: string, password: string) => {
-    if (username === 'sarahkwak' && password === 'hackthenorth') {
+    if (username === "sarahkwak" && password === "hackthenorth") {
       setisLoggedIn(true);
       return true;
     }
@@ -30,5 +32,4 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   );
 };
 
-// Custom hook to use the auth context
 export const useAuth = () => useContext(Auth);
