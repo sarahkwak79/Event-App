@@ -4,6 +4,8 @@ import { fetchEventById } from "../api/eventAPI";
 import { TEvent, TSpeaker } from "../types/types";
 import EventCard from "../components/EventCard";
 import { useAuth } from "@/components/Auth";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const EventPage: React.FC = () => {
   const { eventId } = useParams<{ eventId: string }>();
@@ -42,20 +44,26 @@ const EventPage: React.FC = () => {
 
   return (
     <>
-      <section className="flex justify-center bg-white bg-dotted-pattern text-black bg-contain md:ml-20 md:mr-20 md:mt-10 md:rounded"
-      style={{
-        boxShadow:
-          "0 4px 10px rgba(255, 255, 255, 0.3), 0 10px 20px rgba(255, 255, 255, 0.2)",
-        transition: "box-shadow 0.3s ease-in-out",
-      }}
-      onMouseEnter={(e) =>
-        (e.currentTarget.style.boxShadow =
-          "0 8px 15px rgba(255, 255, 255, 0.5), 0 15px 30px rgba(255, 255, 255, 0.4)")
-      }
-      onMouseLeave={(e) =>
-        (e.currentTarget.style.boxShadow =
-          "0 4px 10px rgba(255, 255, 255, 0.3), 0 10px 20px rgba(255, 255, 255, 0.2)")
-      }>
+      <Header />
+      <h1 className="flex-center h1-bold mb-5">
+        Event Details
+      </h1>
+      <section
+        className="flex justify-center bg-white bg-dotted-pattern text-black bg-contain md:ml-20 md:mr-20 md:mt-10 md:rounded"
+        style={{
+          boxShadow:
+            "0 4px 10px rgba(255, 255, 255, 0.3), 0 10px 20px rgba(255, 255, 255, 0.2)",
+          transition: "box-shadow 0.3s ease-in-out",
+        }}
+        onMouseEnter={(e) =>
+          (e.currentTarget.style.boxShadow =
+            "0 8px 15px rgba(255, 255, 255, 0.5), 0 15px 30px rgba(255, 255, 255, 0.4)")
+        }
+        onMouseLeave={(e) =>
+          (e.currentTarget.style.boxShadow =
+            "0 4px 10px rgba(255, 255, 255, 0.3), 0 10px 20px rgba(255, 255, 255, 0.2)")
+        }
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:max-w-7xl">
           {/* Background Image */}
           <img
@@ -95,7 +103,7 @@ const EventPage: React.FC = () => {
                 {event.speakers.map((speaker: TSpeaker) => (
                   <span
                     key={speaker.name}
-                    className="h3-semibold text-black sm:mt-0"
+                    className="h3-semibold text-primary-500 sm:mt-0"
                   >
                     Speaker: {speaker.name}
                   </span>
@@ -159,6 +167,7 @@ const EventPage: React.FC = () => {
           ))}
         </div>
       </section>
+      <Footer />
     </>
   );
 };
