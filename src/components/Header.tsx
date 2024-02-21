@@ -7,7 +7,7 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="bg-black p-5 flex justify-between items-center sticky top-0 z-10 w-full">
+    <header className="bg-black p-7 flex justify-between items-center sticky top-0 z-10 w-full">
       <img src="/assets/logo.png" alt="logo" className="size-8 md:size-12" />
       {isLoggedIn ? (
         <div className="flex items-center gap-4">

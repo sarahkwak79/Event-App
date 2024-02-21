@@ -3,6 +3,7 @@ import { fetchEvents } from "../api/eventAPI";
 import EventCard from "./EventCard";
 import { TEvent } from "../types/types";
 import { useAuth } from "./Auth";
+import { sortEvents } from "@/utils/sortEvents";
 
 const EventList: React.FC = () => {
   const [events, setEvents] = useState<TEvent[]>([]);
@@ -18,7 +19,8 @@ const EventList: React.FC = () => {
           : events.filter(
               (event: { permission: string }) => event.permission !== "private"
             );
-        setEvents(filteredEvents);
+        const sortedEvents = sortEvents(filteredEvents);
+        setEvents(sortedEvents);
       })
       .catch(console.error);
   }, [isLoggedIn]);
@@ -66,8 +68,7 @@ const EventList: React.FC = () => {
 
       {/* Event cards */}
       {filteredEvents.length > 0 ? (
-        <ul className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:gap-10 px-4 sm:px-6 lg:px-8 justify-center"
-        >
+        <ul className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:gap-10 px-4 sm:px-6 lg:px-8 justify-center">
           {filteredEvents.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}
