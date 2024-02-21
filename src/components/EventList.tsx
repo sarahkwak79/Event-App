@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { fetchEvents } from "../api/eventAPI";
 import EventCard from "./EventCard";
 import { TEvent } from "../types/types";
@@ -7,6 +7,7 @@ import { useAuth } from "./Auth";
 const EventList: React.FC = () => {
   const [events, setEvents] = useState<TEvent[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [eventTypeFilter, setEventTypeFilter] = useState("all");
   const { isLoggedIn } = useAuth();
 
   useEffect(() => {
@@ -22,32 +23,59 @@ const EventList: React.FC = () => {
       .catch(console.error);
   }, [isLoggedIn]);
 
-  const filteredEvents = searchQuery
-    ? events.filter((event) =>
-        event.name.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : events;
+  const filteredEvents = events.filter((event) => {
+    const matchesType =
+      eventTypeFilter === "all" || event.event_type === eventTypeFilter;
+    const matchesSearch = event.name
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+    return matchesType && matchesSearch;
+  });
+
+  const eventTypes = Array.from(
+    new Set(events.map((event) => event.event_type))
+  );
 
   return (
     <div className="flex flex-col items-center w-full">
-      <input
-        type="text"
-        placeholder="Search events..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        style={{ width: "100%", maxWidth: "350px" }}
-        className="search-input mb-4 p-2 rounded border-2 border-gray-300 text-black"
-      />
+      <div className="flex flex-row gap-5 mt-5 items-center">
+        {/* Search input */}
+        <input
+          type="text"
+          placeholder="Search events..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="search-input flex-grow base-semibold mb-4 p-2 rounded border-2 border-gray-300 text-black h-10 w-full max-w-md sm:max-w-sm"
+          style={{ width: "200px md:300px" }}
+        />
 
+        {/* Event type dropdown */}
+        <select
+          value={eventTypeFilter}
+          onChange={(e) => setEventTypeFilter(e.target.value)}
+          className="mb-4 p-2 rounded border-2 base-semibold border-gray-300 text-black h-10"
+          style={{ width: "100px md:110px" }}
+        >
+          <option value="all">All Types</option>
+          {eventTypes.map((type) => (
+            <option key={type} value={type}>
+              {type}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Event cards */}
       {filteredEvents.length > 0 ? (
-        <ul className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:gap-10 px-4 sm:px-6 lg:px-8 justify-center">
+        <ul className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 xl:gap-10 px-4 sm:px-6 lg:px-8 justify-center"
+        >
           {filteredEvents.map((event) => (
             <EventCard key={event.id} event={event} />
           ))}
         </ul>
       ) : (
         <div className="text-center mt-3 h3-semibold">
-          No events matches your search.
+          No events match your filters.
         </div>
       )}
     </div>

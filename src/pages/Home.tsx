@@ -10,6 +10,7 @@ const Home: React.FC = () => {
         Get existed! Hack The North has numerous well curated events for our
         hackers to enjoy and learn from!
       </h1>
+      <hr className="mt-20 w-full border-t border-white" />
       <EventList />
     </div>
   );

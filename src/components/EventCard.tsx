@@ -22,10 +22,10 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
     const words = text.split(" ");
     return words.length > maxWords ? "" : "pb-8";
   };
-  
+
   return (
     <div
-      className="group relative flex h-[380px] w-full max-w-[400px] flex-col overflow-hidden rounded-xl bg-white md:h-[438px]"
+      className="group relative flex h-[380px] w-full max-w-[400px] min-w-[350px] md:min-w-[400px] flex-col overflow-hidden rounded-xl bg-white md:h-[438px]"
       onClick={onEventClick}
       style={{
         boxShadow:
@@ -66,7 +66,7 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
 
         {/* Date and Time */}
         <p className="small-semibold pt-4 pb-2 text-gray-500">
-          {new Date(event.start_time).toLocaleString()} - {" "}
+          {new Date(event.start_time).toLocaleString()} -{" "}
           {new Date(event.end_time).toLocaleString()}
         </p>
 
@@ -84,7 +84,10 @@ const EventCard: React.FC<EventCardProps> = ({ event }) => {
         {event.speakers && event.speakers.length > 0 ? (
           <div className="flex-between w-full">
             {event.speakers.map((speaker: TSpeaker) => (
-              <p key={speaker.name} className="small-semibold md:base-semibold text-gray-600">
+              <p
+                key={speaker.name}
+                className="small-semibold md:base-semibold text-gray-600"
+              >
                 Speaker: {speaker.name}
               </p>
             ))}
