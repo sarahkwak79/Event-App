@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import EventList from "../components/EventList";
 import Header from "../components/Header";
 
@@ -12,6 +13,7 @@ const Home: React.FC = () => {
       </h1>
       <hr className="mt-20 w-full border-t border-white" />
       <EventList />
+      <Footer />
     </div>
   );
 };

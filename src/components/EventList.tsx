@@ -37,7 +37,7 @@ const EventList: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full mb-10">
       <div className="flex flex-row gap-5 mt-5 items-center">
         {/* Search input */}
         <input
