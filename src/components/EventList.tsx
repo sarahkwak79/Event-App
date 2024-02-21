@@ -45,8 +45,7 @@ const EventList: React.FC = () => {
           placeholder="Search events..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="search-input flex-grow base-semibold mb-4 p-2 rounded border-2 border-gray-300 text-black h-10 w-full max-w-md sm:max-w-sm"
-          style={{ width: "200px md:300px" }}
+          className="search-input base-semibold mb-4 p-2 rounded border-2 border-gray-300 text-black w-3/4"
         />
 
         {/* Event type dropdown */}
@@ -54,7 +53,7 @@ const EventList: React.FC = () => {
           value={eventTypeFilter}
           onChange={(e) => setEventTypeFilter(e.target.value)}
           className="mb-4 p-2 rounded border-2 base-semibold border-gray-300 text-black h-10"
-          style={{ width: "100px md:110px" }}
+          style={{ width: "110px" }}
         >
           <option value="all">All Types</option>
           {eventTypes.map((type) => (
